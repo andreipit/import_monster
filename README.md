@@ -1,5 +1,11 @@
 # Import monster
 
+## Usage
+black import_order.py
+
+cd make_gnuwin32
+.\make.exe install_dev
+
 You need to create package called `import_monster`
 This package has to provide method called `methods_importer`
 
@@ -21,4 +27,4 @@ Additional requirements:
 - flake8
 
 - Add requirements file
-- Add install requirements target in Makefile 
+- Add install requirements target in Makefile
