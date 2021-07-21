@@ -2,20 +2,24 @@
 import builtins
 import importlib
 import math
-import sys
+import sys  # noqa
 from types import ModuleType
-from typing import List, Optional, Union, Callable
+from typing import Callable, List, Optional, Union
 
 import numpy
 
-def methods_importer(method_name: str, modules: List[Union[str, ModuleType]]) -> List[Callable]:
+
+def methods_importer(
+    method_name: str, modules: List[Union[str, ModuleType]]
+) -> List[Callable]:
     """
-        Method has to check if any of `modules` contains `callable` object with name `method_name`
-        and return list of such objects
-        args:
-            method_name - name of object (method) we wanna find
-            modules - where to search. Given by str or Module object.
-        return: list of modules, that contain this method_name
+    Method has to check if any of `modules` contains
+     `callable` object with name `method_name`
+    and return list of such objects
+    args:
+        method_name - name of object (method) we wanna find
+        modules - where to search. Given by str or Module object.
+    return: list of modules, that contain this method_name
     """
     result = []
     for module in modules:
@@ -39,17 +43,17 @@ def methods_importer(method_name: str, modules: List[Union[str, ModuleType]]) ->
     return result
 
 
-
 def search_import(
     method: str, modules: List[Union[str, ModuleType]]
 ) -> Optional[object]:
     """
-        Method has to check if any of `modules` contains `callable` object with name `method_name`
-        and return list of such objects
-        args:
-            method - name of object (method) we wanna find
-            modules - where to search. Given by str or Module object.
-        return: first found object (method)
+    Method has to check if any of `modules` contains
+    `callable` object with name `method_name`
+    and return list of such objects
+    args:
+        method - name of object (method) we wanna find
+        modules - where to search. Given by str or Module object.
+    return: first found object (method)
     """
     for module in modules:
         try:
@@ -57,16 +61,18 @@ def search_import(
             if isinstance(module, ModuleType):
                 mod = module
             elif isinstance(module, str):
-                mod = importlib.import_module(module) # get module by string name
+                # get module by string name
+                mod = importlib.import_module(module)
             else:
                 raise TypeError('Must be list of strings or ModuleType')
 
-            met = getattr(mod, method, None) # get method from module by string name
+            # get method from module by string name
+            met = getattr(mod, method, None)
 
             if met:
                 return met
 
-        except ImportError: # import_module can fail
+        except ImportError:  # import_module can fail
             continue
 
     return None
