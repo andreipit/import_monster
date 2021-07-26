@@ -19,6 +19,6 @@ repos:
       - id: fix-encoding-pragma
       - id: trailing-whitespace
       - id: end-of-file-fixer
-      - id: flake8
+      # - id: flake8
       - id: double-quote-string-fixer
       - id: check-docstring-first
