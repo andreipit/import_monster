@@ -4,7 +4,7 @@ import inspect
 import os
 import sys
 
-# sys.path.insert(0, '..') # not working with isort # pull request
+# sys.path.insert(0, '..') # not working with isort # pull request v2
 
 currentdir = os.path.dirname(os.path.abspath(  # noqa
     inspect.getfile(inspect.currentframe())))  # noqa
