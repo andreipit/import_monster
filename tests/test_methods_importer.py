@@ -31,12 +31,12 @@ class TestPrepend:
     )
     def test_multiple_mutable_structure(self, test_case, expected_result, our_great_fixture):
         print('Do stuff')
-        assert test_case == expected_result + (our_great_fixture * 10)
+        assert test_case == expected_result + (our_great_fixture * 0)
 
     @pytest.fixture
     def our_great_fixture(self):
         print('Do smth before fixter is used (printed at failure only)')
-        yield
+        # yield
         print('Do smth after fixter is used (printed at failure only)')
         return 2
 
