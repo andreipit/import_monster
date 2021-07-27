@@ -11,11 +11,6 @@ import pytest
 
 from main_package import *
 
-# currentdir = os.path.dirname(os.path.abspath(  # noqa
-#     inspect.getfile(inspect.currentframe())))  # noqa
-# parentdir = os.path.dirname(currentdir)  # noqa
-# sys.path.insert(0, parentdir)  # noqa
-
 
 def test_answer():
     assert len(methods_importer('abs', [math, builtins, numpy])) == 2

@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 # file helps to fix isort bug: puts it after packages iport
+import inspect
+import os
 import sys
 
-sys.path.insert(0, '..')
+# sys.path.insert(0, '..')
+
+currentdir = os.path.dirname(os.path.abspath(  # noqa
+    inspect.getfile(inspect.currentframe())))  # noqa
+parentdir = os.path.dirname(currentdir)  # noqa
+sys.path.insert(0, parentdir)  # noqa
