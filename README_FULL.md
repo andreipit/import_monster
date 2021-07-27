@@ -4,6 +4,8 @@
 3) isort
 5) makefile
 6) requirements
+7) tests
+8) actions
 
 -----------------------------------------------------------
 -----------------------------------------------------------
@@ -159,3 +161,70 @@ install:
 6) requirements
 	always add versions
 	divide on 2 files: for developeres and for users
+
+-----------------------------------------------------------
+-----------------------------------------------------------
+-----------------------------------------------------------
+7) tests
+7.1) unit test - built in (django uses), pytest - external but more convinient
+7.2) pycharm feature - press play near fun and it will run pytest
+7.3) create arguments (fun will be called 3 times with 3 different args)
+	@pytest.mark.parametrize(
+	    "test_case,expected_result",
+	    [
+	        ((1, [1, 2, 3]), [1, 1, 2, 3]), # (test_case, expected_result)
+	        (([1, 2], (3, 4, 5)), [[1, 2], 3, 4, 5]), # (test_case, expected_result)
+	        (("a", "asd"), ["a", "a", "s", "d"]), # (test_case, expected_result)
+	    ],
+	)
+	def test_multiple_mutable_structure(self, test_case, expected_result):
+	    assert list(prepend(*test_case)) == expected_result
+7.4) fixtures - 2nd way to create arguments (generated args)
+	@pytest.fixture
+	def our_great_fixture():
+	    lst = [1]
+	    print(f"Our list: {lst!r}")
+
+	    yield lst
+
+	    lst.clear()
+	    print(f"Our list: {lst!r}")
+
+
+	def test_simple(our_great_fixture):
+	    assert our_great_fixture == [1]
+
+7.5) call smth before or after test
+way1: automatically
+* you dont need to pass any args to your test fun
+* auto_fixture will be run by default
+	@pytest.fixture(autouse=True)  # just put it in any file
+	def auto_fixture():
+	    print("Set Up")
+	    yield
+	    print("Tear Down")
+way2: inside fixture:
+	* setUp tearDown - before and after test in unitests
+
+
+
+----------------------------------------------------
+----------------------------------------------------
+----------------------------------------------------
+8) actions
+8.1) hello world (my experience)
+create github repo / actions / Python Package
+* will create github_actions_test\.github\workflows\python-package.yml
+# create tests/test_naive.py:
+def func(x):
+    return x + 1
+def test_answer():
+    assert func(3) == 4
+after you pushed, go to Actions, see CommitsList => SUCCESS!
+	* like on kaggle last commit is running in the cloud
+	* cloud is docker, docker settings are in python-package.yml too
+https://docs.github.com/en/actions/guides/building-and-testing-python
+see github_actions_test.zip
+8.2) import_monster errors:
+isort puts adding to sys.path after importing parent package
+fix: create tests/pathmagic, but don't use just sys.path.insert(0, '..')
